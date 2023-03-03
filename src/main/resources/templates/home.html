@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>contact</title>
+  </head>
+  
+  <body>
+    <h1>Spring Boot Contacts</h1>
+    <form method="POST" th:object="${contact}">
+      <div><span class="validationError"
+                 th:if="${#fields.hasErrors('first_name')}"
+                 th:errors="*{first_name}">First_nameError</span>
+      </div>
+      <p>First Name:<input id="first_name" type="text" th:field="*{first_name}"></p>
+      <div><span class="validationError"
+                 th:if="${#fields.hasErrors('last_name')}"
+                 th:errors="*{last_name}">First_nameError</span>
+      </div>
+      <p> Last Name:<input id="last_name" type="text" th:field="*{last_name}"></p>
+      <div><span class="validationError"
+                 th:if="${#fields.hasErrors('phone')}"
+                 th:errors="*{phone}">First_nameError</span>
+      </div>
+      <p>   Phone #:<input id="phone" type="text" th:field="*{phone}"></p>
+      <div><span class="validationError"
+                 th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">First_nameError</span>
+      </div>
+      <p>     Email:<input id="email" type="text" th:field="*{email}"></p>
+      <button>提交</button>
+    </form>
+    <ul>
+      <li th:each="con : ${contactList.contacts}">
+        <span th:text="${con.first_name}">first_name</span>
+        <span th:text="${con.last_name}">last_name</span>
+        ：<span th:text="${con.phone}">phone</span>
+        <span th:text="${con.email}">email</span>
+      </li>
+    </ul>
+  </body>
+<style>
+  .validationError {
+    color: red;
+  }
+</style>
+</html>
