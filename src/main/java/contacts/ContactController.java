@@ -1,8 +1,8 @@
-package contactos;
+package contacts;
 
+import contacts.data.ContactRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,14 @@ import javax.validation.Valid;
 @SessionAttributes("contactList")
 public class ContactController {
     private ContactList contacts = new ContactList();
+
+    private final ContactRepository contactRepository;
+
+    @Autowired
+    public ContactController(ContactRepository contactRepository){
+        this.contactRepository = contactRepository;
+    }
+
     @GetMapping
     public String showHome() {
         return "home";
@@ -38,7 +46,7 @@ public class ContactController {
             return "home";
         }
         contactList.addContact(contact);
-        System.out.println(contactList.contacts.size());
+        contactRepository.save(contact);
         log.info("Contact submitted", contact);
         sessionStatus.setComplete();
 
