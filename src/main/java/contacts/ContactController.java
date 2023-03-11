@@ -48,7 +48,6 @@ public class ContactController {
 
         contactList.addContact(contact);
         contactRepository.save(contact);
-
         log.info("Contact submitted", contact);
         sessionStatus.setComplete();
         return "home";
